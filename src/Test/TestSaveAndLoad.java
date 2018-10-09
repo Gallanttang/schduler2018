@@ -1,9 +1,6 @@
 package Test;
-import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import model.WorkOut;
-import org.junit.Before;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
@@ -11,21 +8,19 @@ import model.ListOfWorkOuts;
 
 import java.io.File;
 import java.io.IOException;
-import java.nio.file.Path;
-import java.util.Collection;
 
 public class TestSaveAndLoad{
 
 
         ListOfWorkOuts test = new ListOfWorkOuts();
-        WorkOut legs = new WorkOut("Legs", "Monday", "Squats and lunges");
-        WorkOut arms = new WorkOut("Arms", "Tuesday", "Biceps curls and triceps dips");
-        WorkOut torso = new WorkOut("Torso", "Wednesday", "Bench Presses and pull ups");
-        WorkOut core = new WorkOut("Core", "Thursday", "Sit ups and leg raises exercises");
-        WorkOut cardio = new WorkOut("Cardio", "Friday", "Run 2.4km and do 5 minutes of power rope");
-        WorkOut back = new WorkOut("Back", "Saturday", "Dead lifts and lats pull down");
-        WorkOut rest = new WorkOut("Rest", "Sunday", "no working out today");
-        WorkOut neck = new WorkOut("Neck", "Monday", "programming");
+        WorkOut legs = new WorkOut("Legs", 18,"Monday", "Squats and lunges");
+        WorkOut arms = new WorkOut("Arms", 18,"Tuesday", "Biceps curls and triceps dips");
+        WorkOut torso = new WorkOut("Torso", 18,"Wednesday", "Bench Presses and pull ups");
+        WorkOut core = new WorkOut("Core", 18,"Thursday", "Sit ups and leg raises exercises");
+        WorkOut cardio = new WorkOut("Cardio",18, "Friday", "Run 2.4km and do 5 minutes of power rope");
+        WorkOut back = new WorkOut("Back",18, "Saturday", "Dead lifts and lats pull down");
+        WorkOut rest = new WorkOut("Rest", 18,"Sunday", "no working out today");
+        WorkOut neck = new WorkOut("Neck", 18,"Monday", "programming");
 
 
 

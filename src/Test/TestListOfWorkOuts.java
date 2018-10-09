@@ -10,18 +10,14 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class TestListOfWorkOuts {
 
-    String workOutName;
-    String day;
-    String work;
-
-    WorkOut legs = new WorkOut("Legs", "Monday", "Squats and lunges");
-    WorkOut arms = new WorkOut("Arms", "Tuesday", "Biceps curls and triceps dips");
-    WorkOut torso = new WorkOut("Torso", "Wednesday", "Bench Presses and pull ups");
-    WorkOut core = new WorkOut("Core", "Thursday", "Sit ups and leg raises exercises");
-    WorkOut cardio = new WorkOut("Cardio", "Friday", "Run 2.4km and do 5 minutes of power rope");
-    WorkOut back = new WorkOut("Back", "Saturday", "Dead lifts and lats pull down");
-    WorkOut rest = new WorkOut("Rest", "Sunday", "no working out today");
-    WorkOut leg = new WorkOut("Leg", "Monday", "Squats and lunges");
+    WorkOut legs = new WorkOut("Legs", 18, "Squats and lunges", "Monday");
+    WorkOut arms = new WorkOut("Arms", 18, "Biceps curls and triceps dips","Tuesday");
+    WorkOut torso = new WorkOut("Torso", 18, "Bench Presses and pull ups","Wednesday");
+    WorkOut core = new WorkOut("Core", 18, "Sit ups and leg raises exercises","Thursday");
+    WorkOut cardio = new WorkOut("Cardio", 18, "Run 2.4km and do 5 minutes of power rope","Friday");
+    WorkOut back = new WorkOut("Back", 18, "Dead lifts and lats pull down","Saturday");
+    WorkOut rest = new WorkOut("Rest", 18, "no working out today","Sunday");
+    WorkOut leg = new WorkOut("Leg", 18,"Monday", "Squats and lunges");
 
     @Test
     public void testAddWorkOut() {
@@ -34,10 +30,9 @@ public class TestListOfWorkOuts {
         workOuts.add(cardio);
         workOuts.add(back);
         workOuts.add(rest);
-        workOuts.addAndReplace("Leg", "Monday", "Squats and lunges");
+        workOuts.addAndReplace("Leg", 18, "Squats and lunges","Monday");
 
-        assertFalse(workOuts.find("Legs"));
-        assertTrue(workOuts.find("Leg"));
+        assertTrue(workOuts.find("Tuesday"));
     }
 
 

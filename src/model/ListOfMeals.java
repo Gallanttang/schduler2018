@@ -6,7 +6,7 @@ import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ListOfMeals implements ListInterface {
+public class ListOfMeals extends ListInterface {
     List<Meals> meals = new ArrayList<>();
 
     public List<Meals> getMeals(){
@@ -27,8 +27,8 @@ public class ListOfMeals implements ListInterface {
     // REQUIRES: New meals parameters
     // MODIFIES: this
     // EFFECTS:  Adds a meal to the list, deletes a meal if the time given is the same
-    public void addMeal(String name, int time, String foodPlan) {
-        Meals meal = new Meals(name, time, foodPlan);
+    public void addMeal(String name, int time, String plan) {
+        Meals meal = new Meals(name, time, plan);
         if (!(time < 0 || time >= 24)) {
             for (int i = 0; i < meals.size(); i++) {
                 if (time == meals.get(i).getTime()) {
@@ -68,6 +68,26 @@ public class ListOfMeals implements ListInterface {
         int pmTime;
         for (Meals m : meals) {
             if (name.equals(m.getName())) {
+                if (m.getTime() < 12) {
+                    System.out.println(m.getName() + " is at " + m.getTime() + "am, and you need to eat " + m.getPlan());
+                } else {
+                    pmTime = m.getTime() - 12;
+                    System.out.println(m.getName() + " is at " + pmTime + "pm, and you need to eat " + m.getPlan());
+                }
+                return true;
+            }
+        }
+        System.out.println("That meal is not found");
+        return false;
+    }
+
+    // REQUIRES: Meal name
+    // MODIFIES: Nothing
+    // EFFECTS:  Finds the meal with the given name list and returns true if found, false if not
+    public boolean find(int time) {
+        int pmTime;
+        for (Meals m : meals) {
+            if (time == m.getTime()) {
                 if (m.getTime() < 12) {
                     System.out.println(m.getName() + " is at " + m.getTime() + "am, and you need to eat " + m.getPlan());
                 } else {

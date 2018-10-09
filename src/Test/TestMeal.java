@@ -5,7 +5,6 @@ import model.Meals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-import org.junit.Before;
 import org.junit.jupiter.api.Test;
 
 public class TestMeal {
@@ -18,7 +17,7 @@ public class TestMeal {
     public void testChangingParameters() {
         breakfast.changeName("First Meal");
         breakfast.changeTime(8);
-        breakfast.changeFoodPlan("It's time for breakfast! Get some cereal and almond milk.");
+        breakfast.changePlan("It's time for breakfast! Get some cereal and almond milk.");
         assertTrue(breakfast.getName() == "First Meal");
         assertTrue(breakfast.getTime() == 8);
         assertTrue(breakfast.getPlan() == "It's time for breakfast! Get some cereal and almond milk.");

@@ -6,9 +6,8 @@ import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ListOfWorkOuts implements ListInterface{
+public class ListOfWorkOuts extends ListInterface{
      List<WorkOut> workOuts = new ArrayList<>();
-
 
     public List<WorkOut> getWorkOuts() {
         return workOuts;
@@ -38,15 +37,13 @@ public class ListOfWorkOuts implements ListInterface{
     //Requires: Work Out list
     //Modifies: Nothing
     //Effects:  Returns the size of the list
-    public int size(){
-        return workOuts.size();
-    }
+    public int size() { return workOuts.size(); }
 
     //Requires: User Input
     //Modifies: this
     //Effects:  Over rides existing plan with a loaded plan
-    public void addAndReplace(String name, String day, String work) {
-        WorkOut WO = new WorkOut(name, day, work);
+    public void addAndReplace(String name, int time, String work, String day) {
+        WorkOut WO = new WorkOut(name, time, work, day);
         if(!workOuts.contains(WO)){
             workOuts.add(WO);
             System.out.println(WO.getName() + " has been added on " + WO.getDay());
@@ -69,7 +66,7 @@ public class ListOfWorkOuts implements ListInterface{
     public void save(Path saveTo) throws IOException{
         List<String> lines = new ArrayList<>();
         for(WorkOut wo : workOuts) {
-            lines.add(wo.getName() + "," + wo.getDay() + "," + wo.getPlan());
+            lines.add(wo.getName() +  ","+ Integer.toString(wo.getTime()) + ","+ wo.getDay() + "," + wo.getPlan());
         }
         Files.write(saveTo, lines);
     }
@@ -82,8 +79,8 @@ public class ListOfWorkOuts implements ListInterface{
         workOuts.clear();
         List<String> lines = Files.readAllLines(from);
         for(String workout : lines) {
-            String[] split = workout.split(",", 3);
-            WorkOut wo = new WorkOut(split[0], split[1], split[2]);
+            String[] split = workout.split(",", 4);
+            WorkOut wo = new WorkOut(split[0], Integer.parseInt(split[1]), split[2], split[3]);
             workOuts.add(wo);
         }
     }
@@ -119,9 +116,9 @@ public class ListOfWorkOuts implements ListInterface{
     // MODIFIES: nothing
     // EFFECTS: prints out what day that work out is on and what needs to be done
     public boolean find(String day) {
-        for (WorkOut w: workOuts) {
-            if(day.equals(w.getDay())){
-                System.out.println(w.getName() + " is found, it is done on " + w.getDay() + "!");
+        for (int i = 0; i < workOuts.size(); i++) {
+            if(workOuts.get(i).getDay().equals(day)){
+                System.out.println(workOuts.get(i).getName() + " is found, it is done on " + workOuts.get(i).getDay() + "!");
                 return true;
             }
         }
