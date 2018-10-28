@@ -1,33 +1,30 @@
 package model;
 
+import Exceptions.InvalidTimeException;
+
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ListOfMeals extends ListInterface {
-    List<Meals> meals = new ArrayList<>();
+public class ListOfMeals extends ListAbstract {
+    ArrayList<Meals> meals = new ArrayList<>();
 
-    public List<Meals> getMeals(){
+    public ArrayList<Meals> getMeals(){
         return meals;
     }
 
-
-    public void add(Meals meal) {
-        meals.add(meal);
-    }
-
-
-    public void remove(Meals meal) {
-        meals.remove(meal);
+    // EFFECTS:  returns the meal at the given index
+    public Meals get(int i){
+        return meals.get(i);
     }
 
 
     // REQUIRES: New meals parameters
     // MODIFIES: this
     // EFFECTS:  Adds a meal to the list, deletes a meal if the time given is the same
-    public void addMeal(String name, int time, String plan) {
+    public void addMeal(String name, int time, String plan) throws InvalidTimeException{
         Meals meal = new Meals(name, time, plan);
         if (!(time < 0 || time >= 24)) {
             for (int i = 0; i < meals.size(); i++) {
@@ -39,11 +36,11 @@ public class ListOfMeals extends ListInterface {
                     break;
                 }
             }
-        }
-        if (!meals.contains(meal)) {
-            meals.add(meal);
-            System.out.println(name + " has been added.");
-        }
+            if (!meals.contains(meal)) {
+                meals.add(meal);
+                System.out.println(name + " has been added.");
+            }
+        } else throw new InvalidTimeException(time);
     }
 
 
@@ -55,9 +52,10 @@ public class ListOfMeals extends ListInterface {
             if (name.equals(meals.get(i).getName())) {
                 System.out.println(meals.get(i).getName() + " is removed.");
                 meals.remove(i);
-                break;
+                return;
             }
         }
+        System.out.println("No meal with that name is found");
     }
 
 
@@ -113,7 +111,7 @@ public class ListOfMeals extends ListInterface {
     @Override
     public void load(Path from) throws IOException {
         meals.clear();
-        List<String> lines = Files.readAllLines(from);
+        List<String> lines =  Files.readAllLines(from);
         for (String workout : lines) {
                 String[] split = workout.split(",", 3);
                 Meals meal = new Meals(split[0], Integer.parseInt(split[1]), split[2]);

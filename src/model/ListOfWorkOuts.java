@@ -1,15 +1,22 @@
 package model;
 
+import Exceptions.InvalidDayException;
+import Exceptions.InvalidTimeException;
+
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.util.ArrayList;
 import java.util.List;
+import java.util.ArrayList;
 
-public class ListOfWorkOuts extends ListInterface{
-     List<WorkOut> workOuts = new ArrayList<>();
+public class ListOfWorkOuts extends ListAbstract {
+    private ArrayList<WorkOut> workOuts;
 
-    public List<WorkOut> getWorkOuts() {
+    public ListOfWorkOuts() {
+        workOuts = new ArrayList<>();
+    }
+
+    public ArrayList<WorkOut> getWorkOuts() {
         return workOuts;
     }
 
@@ -30,6 +37,7 @@ public class ListOfWorkOuts extends ListInterface{
     // REQUIRES: index of work out (0<= i < workOut.size())
     // MODIFIES: nothing
     // EFFECTS:  returns work out in that position
+
     public WorkOut get(int i){
         return workOuts.get(i);
     }
@@ -42,7 +50,16 @@ public class ListOfWorkOuts extends ListInterface{
     //Requires: User Input
     //Modifies: this
     //Effects:  Over rides existing plan with a loaded plan
-    public void addAndReplace(String name, int time, String work, String day) {
+    public void addAndReplace(String name, int time, String work, String day) throws InvalidDayException, InvalidTimeException{
+        if(!(day.equals("Monday") || day.equals("Tuesday") || day.equals("Wednesday") || day.equals("Thursday")
+        || day.equals("Friday") || day.equals("Saturday") || day.equals("Sunday"))){
+            throw new InvalidDayException(day);
+        }
+
+        if(!(time >= 0 && time <=23)){
+            throw new InvalidTimeException(time);
+        }
+
         WorkOut WO = new WorkOut(name, time, work, day);
         if(!workOuts.contains(WO)){
             workOuts.add(WO);
@@ -64,7 +81,7 @@ public class ListOfWorkOuts extends ListInterface{
     //Effects:  creates a new file with existing work out plan
     @Override
     public void save(Path saveTo) throws IOException{
-        List<String> lines = new ArrayList<>();
+        ArrayList<String> lines = new ArrayList<>();
         for(WorkOut wo : workOuts) {
             lines.add(wo.getName() +  ","+ Integer.toString(wo.getTime()) + ","+ wo.getDay() + "," + wo.getPlan());
         }
@@ -78,7 +95,7 @@ public class ListOfWorkOuts extends ListInterface{
     public void load(Path from) throws IOException {
         workOuts.clear();
         List<String> lines = Files.readAllLines(from);
-        for(String workout : lines) {
+        for (String workout : lines) {
             String[] split = workout.split(",", 4);
             WorkOut wo = new WorkOut(split[0], Integer.parseInt(split[1]), split[2], split[3]);
             workOuts.add(wo);
@@ -99,9 +116,11 @@ public class ListOfWorkOuts extends ListInterface{
     }
 
 
+
     // REQUIRES: A day of the week
     // MODIFIES: this
     // EFFECTS: Removes a WorkOut on a given day
+    @Override
     public void remove(String day) {
         for (WorkOut WO : workOuts) {
             if (day.equals(WO.getDay())) {
@@ -115,6 +134,7 @@ public class ListOfWorkOuts extends ListInterface{
     // REQUIRES: The day of a work out
     // MODIFIES: nothing
     // EFFECTS: prints out what day that work out is on and what needs to be done
+    @Override
     public boolean find(String day) {
         for (int i = 0; i < workOuts.size(); i++) {
             if(workOuts.get(i).getDay().equals(day)){
