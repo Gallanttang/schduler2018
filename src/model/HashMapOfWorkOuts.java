@@ -6,17 +6,16 @@ import Exceptions.InvalidTimeException;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.util.List;
-import java.util.ArrayList;
+import java.util.*;
 
-public class ListOfWorkOuts extends ListAbstract {
-    private ArrayList<WorkOut> workOuts;
+public class HashMapOfWorkOuts extends HashMapAbstract {
+    private HashMap<String, WorkOut> workOuts;
 
-    public ListOfWorkOuts() {
-        workOuts = new ArrayList<>();
+    public HashMapOfWorkOuts() {
+        workOuts = new HashMap<>(7);
     }
 
-    public ArrayList<WorkOut> getWorkOuts() {
+    public HashMap<String, WorkOut> getWorkOuts() {
         return workOuts;
     }
 
@@ -24,22 +23,22 @@ public class ListOfWorkOuts extends ListAbstract {
     // MODIFIES: this
     // EFFECTS:  Adds a WorkOut to the list and removes a work out that is on the same day
     public void add(WorkOut w){
-        workOuts.add(w);
+        workOuts.put(w.getDay(), w);
     }
 
     //Requires: A workout
     //Modifies: this
     //Effects:  removes that work out from the list if it exists in the list
     public void remove(WorkOut w){
-        workOuts.remove(w);
+        workOuts.remove(w.getDay());
     }
 
     // REQUIRES: index of work out (0<= i < workOut.size())
     // MODIFIES: nothing
     // EFFECTS:  returns work out in that position
 
-    public WorkOut get(int i){
-        return workOuts.get(i);
+    public WorkOut get(String day){
+        return workOuts.get(day);
     }
 
     //Requires: Work Out list
@@ -51,29 +50,31 @@ public class ListOfWorkOuts extends ListAbstract {
     //Modifies: this
     //Effects:  Over rides existing plan with a loaded plan
     public void addAndReplace(String name, int time, String work, String day) throws InvalidDayException, InvalidTimeException{
-        if(!(day.equals("Monday") || day.equals("Tuesday") || day.equals("Wednesday") || day.equals("Thursday")
-        || day.equals("Friday") || day.equals("Saturday") || day.equals("Sunday"))){
+        if(isAValidDayOfWeek(day)){
             throw new InvalidDayException(day);
         }
-
-        if(!(time >= 0 && time <=23)){
+        if(validTime(time)){
             throw new InvalidTimeException(time);
         }
-
         WorkOut WO = new WorkOut(name, time, work, day);
-        if(!workOuts.contains(WO)){
-            workOuts.add(WO);
+        if(!workOuts.containsKey(day)){
+            workOuts.put(day, WO);
             System.out.println(WO.getName() + " has been added on " + WO.getDay());
+        } else {
+            System.out.println(workOuts.get(day).getName() + " on " + day + " has been removed");
+            workOuts.remove(day);
+            System.out.println(WO.getName() + " has been added on " + WO.getDay());
+            workOuts.put(day,WO);
         }
-        for (WorkOut wo: workOuts) {
-            if(!wo.equals(WO)){
-                if(wo.getDay().equalsIgnoreCase(WO.getDay())){
-                    System.out.println(wo.getName() + " on " + wo.getDay() + " has been removed");
-                    workOuts.remove(wo);
-                    break;
-                }
-            }
-        }
+    }
+
+    private boolean validTime(int time) {
+        return !(time >= 0 && time <=24);
+    }
+
+    private boolean isAValidDayOfWeek(String day) {
+        return !(day.equals("Monday") || day.equals("Tuesday") || day.equals("Wednesday") || day.equals("Thursday")
+        || day.equals("Friday") || day.equals("Saturday") || day.equals("Sunday"));
     }
 
     //Requires: Path
@@ -82,8 +83,9 @@ public class ListOfWorkOuts extends ListAbstract {
     @Override
     public void save(Path saveTo) throws IOException{
         ArrayList<String> lines = new ArrayList<>();
-        for(WorkOut wo : workOuts) {
-            lines.add(wo.getName() +  ","+ Integer.toString(wo.getTime()) + ","+ wo.getDay() + "," + wo.getPlan());
+        for (Map.Entry<String, WorkOut> e: workOuts.entrySet()) {
+            lines.add(e.getValue().getName() +  ","+ Integer.toString(e.getValue().getTime())
+                    + ","+ e.getValue().getDay() + "," + e.getValue().getPlan());
         }
         Files.write(saveTo, lines);
     }
@@ -98,7 +100,7 @@ public class ListOfWorkOuts extends ListAbstract {
         for (String workout : lines) {
             String[] split = workout.split(",", 4);
             WorkOut wo = new WorkOut(split[0], Integer.parseInt(split[1]), split[2], split[3]);
-            workOuts.add(wo);
+            workOuts.put(wo.getDay(), wo);
         }
     }
 
@@ -107,9 +109,9 @@ public class ListOfWorkOuts extends ListAbstract {
     // MODIFIES: this
     // EFFECTS:  Changes the work parameter of a workout in the list with the name provided
     public void changeWork(String name, String work){
-        for (WorkOut wo: workOuts) {
-            if(name.equals(wo.getName())) {
-                wo.changePlan(work);
+        for (Map.Entry<String, WorkOut> e: workOuts.entrySet()) {
+            if(name.equals(e.getValue().getName())) {
+                e.getValue().changePlan(work);
                 break;
             }
         }
@@ -122,10 +124,10 @@ public class ListOfWorkOuts extends ListAbstract {
     // EFFECTS: Removes a WorkOut on a given day
     @Override
     public void remove(String day) {
-        for (WorkOut WO : workOuts) {
-            if (day.equals(WO.getDay())) {
-                workOuts.remove(WO);
-                System.out.println(WO.getName() + " has been removed.");
+        for (Map.Entry<String, WorkOut> e: workOuts.entrySet()) {
+            if (isSameDay(day, e)) {
+                System.out.println(e.getValue().getName() + " has been removed.");
+                workOuts.remove(e.getKey());
                 break;
             }
         }
@@ -136,15 +138,18 @@ public class ListOfWorkOuts extends ListAbstract {
     // EFFECTS: prints out what day that work out is on and what needs to be done
     @Override
     public boolean find(String day) {
-        for (int i = 0; i < workOuts.size(); i++) {
-            if(workOuts.get(i).getDay().equals(day)){
-                System.out.println(workOuts.get(i).getName() + " is found, it is done on " + workOuts.get(i).getDay() + "!");
+        for (Map.Entry<String, WorkOut> e: workOuts.entrySet()) {
+            if(isSameDay(day, e)){
+                System.out.println(e.getValue().getName() + " is found, it is done on "
+                        + e.getValue().getDay() + " and you need to do some" + e.getValue().getPlan() + "!");
                 return true;
             }
         }
         return false;
     }
 
-
+    private boolean isSameDay(String day, Map.Entry<String, WorkOut> e) {
+        return e.getValue().getDay().equalsIgnoreCase(day);
+    }
 
 }

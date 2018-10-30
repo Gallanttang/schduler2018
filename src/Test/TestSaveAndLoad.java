@@ -4,7 +4,7 @@ import model.WorkOut;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
-import model.ListOfWorkOuts;
+import model.HashMapOfWorkOuts;
 
 import java.io.File;
 import java.io.IOException;
@@ -12,7 +12,7 @@ import java.io.IOException;
 public class TestSaveAndLoad{
 
 
-        ListOfWorkOuts test = new ListOfWorkOuts();
+        HashMapOfWorkOuts test = new HashMapOfWorkOuts();
         WorkOut legs = new WorkOut("Legs", 18,"Monday", "Squats and lunges");
         WorkOut arms = new WorkOut("Arms", 18,"Tuesday", "Biceps curls and triceps dips");
         WorkOut torso = new WorkOut("Torso", 18,"Wednesday", "Bench Presses and pull ups");

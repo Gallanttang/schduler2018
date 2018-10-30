@@ -2,10 +2,13 @@ package ui;
 
 import Exceptions.InvalidDayException;
 import Exceptions.InvalidTimeException;
+import model.HashMapOfWorkOuts;
+import model.WorkOut;
 
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Path;
+import java.util.Map;
 import java.util.Scanner;
 
 import static ui.Checks.checkValidDay;
@@ -17,6 +20,16 @@ import static ui.Main.newTime;
 import static ui.Main.newDay;
 
 public class HandleWorkOut {
+    protected static void timeToWorkOut(int time, HashMapOfWorkOuts workOuts, String day) {
+        for (Map.Entry<String, WorkOut> e: workOuts.getWorkOuts().entrySet()) {
+            if (e.getValue().getDay().equals(day) && e.getValue().getTime() == time) {
+                System.out.println("It's " + day + " and its " + e.getValue().getTime()
+                        + "! let's work out " + e.getValue().getName() + "!");
+                System.out.println("Do some " + e.getValue().getPlan() + "!");
+            }
+        }
+    }
+
     public static void findWorkOut(Scanner reader) {
         reader.nextLine();
         System.out.println("On what day is the work out are you looking for?");
@@ -29,24 +42,30 @@ public class HandleWorkOut {
     //Effects:  adds a new workout to work out list, replacing the workout that occurs on the same day as
     //          the new workout
     public static void addWorkOut(Scanner reader) {
-        System.out.println("What will this new work out train?");
-        reader.nextLine();
-        newName = reader.nextLine();
-        System.out.println("What time do you want to work out?");
-        newTime = reader.nextInt();
-        checkValidTime(newTime, reader);
-        reader.nextLine();
-        System.out.println("On which day? (Note: this will remove the current workout on that day)");
-        newDay = reader.nextLine();
-        checkValidDay(newDay, reader);
-        System.out.println("What will this work out comprise of?");
-        newPlan = reader.nextLine();
-        try{
-        workOuts.addAndReplace(newName, newTime, newPlan, newDay);}
+        askForParamWO(reader);
+        try{workOuts.addAndReplace(newName, newTime, newPlan, newDay);}
         catch (InvalidDayException | InvalidTimeException e){
             e.getMessage();
             addWorkOut(reader);
         }
+    }
+
+    private static void askForParamWO(Scanner reader) {
+        System.out.println("What will this new work out train?");
+        reader.nextLine();
+        newName = reader.nextLine();
+
+        System.out.println("What time do you want to work out?");
+        newTime = reader.nextInt();
+        checkValidTime(newTime, reader);
+        reader.nextLine();
+
+        System.out.println("On which day? (Note: this will remove the current workout on that day)");
+        newDay = reader.nextLine();
+        checkValidDay(newDay, reader);
+
+        System.out.println("What will this work out comprise of?");
+        newPlan = reader.nextLine();
     }
 
     //Requires: User Input

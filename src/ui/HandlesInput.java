@@ -15,11 +15,12 @@ import static ui.Main.input;
 
 public class HandlesInput {
 
+
     public static void whatToDo(Scanner reader) {
         while (true) {
             System.out.println("Would you like to:");
             System.out.println("1. add work out/meal? - type \"1\"");
-            System.out.println("2. find out what work out is on what day? - type \"2\"");
+            System.out.println("2. find a work out or a meal? - type \"2\"");
             System.out.println("3. Would you like to save the current plan? - type \"3\"");
             System.out.println("4. Would you like to load a plan? - type \"4\"");
             String line = reader.nextLine();
@@ -54,7 +55,10 @@ public class HandlesInput {
                     handleInput1(reader);
                 }
             } else if (input == 2) {
-                handleInput2(reader);
+                try{handleInput2(reader);} catch (InvalidInput e){
+                    e.getMessage();
+                    handleInput2(reader);
+                }
             } else if (input == 3) {
                 handleInput3(reader);
             } else if (input == 4) {
@@ -79,14 +83,14 @@ public class HandlesInput {
         }
     }
 
-    private static void handleInput2(Scanner reader){
+    private static void handleInput2(Scanner reader) throws InvalidInput{
         System.out.println("Press 1 to find a workout, 2 to find a meal.");
         input = reader.nextInt();
         if (input == 1){
             findWorkOut(reader);
-        } else {
+        } else if (input == 2){
             findMeal(reader);
-        }
+        } else throw new InvalidInput(input);
     }
 
     private static void handleInput3(Scanner reader){

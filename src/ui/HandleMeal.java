@@ -1,6 +1,7 @@
 package ui;
 
 import Exceptions.InvalidTimeException;
+import model.HashMapOfMeals;
 
 import java.io.File;
 import java.io.IOException;
@@ -15,6 +16,15 @@ import static ui.Main.newName;
 
 
 public class HandleMeal {
+
+    protected static void timeToEat(int time, HashMapOfMeals meals) {
+        if (meals.getMeals().containsKey(time)) {
+            if (time == meals.get(time).getTime()) {
+                System.out.println(meals.get(time).getPlan());
+            }
+        }
+    }
+
     public static void findMeal(Scanner reader) {
         reader.nextLine();
         System.out.println("What is the name of the meal you are looking for?");
@@ -23,6 +33,21 @@ public class HandleMeal {
     }
 
     public static void addMeal(Scanner reader) {
+        askForParamMeals(reader);
+        if(newTime != 18) {
+            try {
+                meals.addMeal(newName, newTime, newPlan);
+            } catch (InvalidTimeException e) {
+                e.getMessage();
+                addMeal(reader);
+            }
+        } else {
+            System.out.println("You can't have a meal at 18! You need to work out at that time.");
+            addMeal(reader);
+        }
+    }
+
+    private static void askForParamMeals(Scanner reader) {
         System.out.println("What will this new meal be called?");
         reader.nextLine();
         newName = reader.nextLine();
@@ -32,13 +57,6 @@ public class HandleMeal {
         reader.nextLine();
         System.out.println("What will you eat during this meal?");
         newPlan = reader.nextLine();
-
-
-        try{meals.addMeal(newName,newTime,newPlan);} catch (InvalidTimeException e){
-            e.getMessage();
-            addMeal(reader);
-        }
-
     }
 
     //Requires: User Input

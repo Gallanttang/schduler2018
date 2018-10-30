@@ -2,10 +2,11 @@ package Test;
 
 import Exceptions.InvalidDayException;
 import Exceptions.InvalidTimeException;
-import model.ListOfWorkOuts;
+import model.HashMapOfWorkOuts;
 import model.WorkOut;
 import org.junit.jupiter.api.Test;
 
+import static junit.framework.TestCase.fail;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -23,7 +24,7 @@ public class TestListOfWorkOuts {
 
     @Test
     public void testAddWorkOut() {
-        ListOfWorkOuts workOuts = new ListOfWorkOuts();
+        HashMapOfWorkOuts workOuts = new HashMapOfWorkOuts();
         try {
             workOuts.add(legs);
             workOuts.add(arms);
@@ -33,7 +34,7 @@ public class TestListOfWorkOuts {
             workOuts.add(back);
             workOuts.add(rest);
             workOuts.addAndReplace("Leg", 18, "Squats and lunges", "Monday");
-        } catch (InvalidTimeException | InvalidDayException e) {
+        } catch (InvalidTimeException | InvalidDayException e) { fail();
         }
 
         assertTrue(workOuts.find("Tuesday"));
@@ -42,7 +43,7 @@ public class TestListOfWorkOuts {
 
     @Test
     public void testRemoveWorkOut() {
-        ListOfWorkOuts workOuts = new ListOfWorkOuts();
+        HashMapOfWorkOuts workOuts = new HashMapOfWorkOuts();
 
         workOuts.add(legs);
         workOuts.add(arms);
@@ -58,7 +59,7 @@ public class TestListOfWorkOuts {
 
     @Test
     public void testChangeWork() {
-        ListOfWorkOuts workOuts = new ListOfWorkOuts();
+        HashMapOfWorkOuts workOuts = new HashMapOfWorkOuts();
 
         workOuts.add(legs);
         workOuts.add(arms);
@@ -70,7 +71,7 @@ public class TestListOfWorkOuts {
 
         workOuts.changeWork("Legs", "Squats and Box Jumps");
 
-        assertEquals("Squats and Box Jumps", workOuts.get(0).getPlan());
+        assertEquals("Squats and Box Jumps", workOuts.get("Monday").getPlan());
     }
 
 }
