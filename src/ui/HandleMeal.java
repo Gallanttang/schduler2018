@@ -2,6 +2,7 @@ package ui;
 
 import Exceptions.InvalidTimeException;
 import model.HashMapOfMeals;
+import model.Meals;
 
 import java.io.File;
 import java.io.IOException;
@@ -9,13 +10,30 @@ import java.nio.file.Path;
 import java.util.Scanner;
 
 import static ui.Checks.checkValidTime;
-import static ui.Main.meals;
-import static ui.Main.newPlan;
-import static ui.Main.newTime;
-import static ui.Main.newName;
+
 
 
 public class HandleMeal {
+    private static String newName;
+    private static String newPlan;
+    private static int newTime;
+
+
+    static HashMapOfMeals meals = new HashMapOfMeals();
+
+    final static Meals breakfast = new Meals("Breakfast", 7, "Hey it's 7! The sun is rising, " +
+            "it's time for breakfast! Eat 2 eggs and an apple");
+    final static Meals lunch = new Meals("Lunch", 13, "Hey it's 13! The sun is up high, it's time for lunch! " +
+            "Eat pasta with any sauce and protein of choice");
+    final static Meals dinner = new Meals("Dinner", 19, "Hey it's 19! The sun is setting, it's time for dinner!" +
+            " Eat whatever you want, it's been a long day");
+
+    protected static void generateMeals() {
+        meals.getMeals().put(breakfast.getTime(), breakfast);
+        meals.getMeals().put(lunch.getTime(), lunch);
+        meals.getMeals().put(dinner.getTime(), dinner);
+    }
+
 
     protected static void timeToEat(int time, HashMapOfMeals meals) {
         if (meals.getMeals().containsKey(time)) {
@@ -25,14 +43,14 @@ public class HandleMeal {
         }
     }
 
-    public static void findMeal(Scanner reader) {
+    protected static void findMeal(Scanner reader) {
         reader.nextLine();
         System.out.println("What is the name of the meal you are looking for?");
         newName = reader.nextLine();
         meals.find(newName);
     }
 
-    public static void addMeal(Scanner reader) {
+    protected static void addMeal(Scanner reader) {
         askForParamMeals(reader);
         if(newTime != 18) {
             try {
@@ -53,7 +71,7 @@ public class HandleMeal {
         newName = reader.nextLine();
         System.out.println("What time do you want to eat?");
         newTime = reader.nextInt();
-        checkValidTime(newTime, reader);
+        checkValidTime(newTime);
         reader.nextLine();
         System.out.println("What will you eat during this meal?");
         newPlan = reader.nextLine();
@@ -62,7 +80,7 @@ public class HandleMeal {
     //Requires: User Input
     //Modifies: Nothing
     //Effects:  Creates a txt document with existing workout plan
-    public static Path createPlanMeals(Scanner reader) {
+    protected static Path createPlanMeals(Scanner reader) {
         System.out.println("What would you like to name this plan?");
         String name = reader.nextLine();
         File file = new File(name + "Meals.txt");
@@ -79,7 +97,7 @@ public class HandleMeal {
     //Requires: User Input and existing file
     //Modifies: this
     //Effects:  Over rides existing plan with a loaded plan
-    public static Path loadPlanMeals(Scanner reader) {
+    protected static Path loadPlanMeals(Scanner reader) {
         System.out.println("What plan would you like to load?");
         String name = reader.nextLine();
         File file = new File(name + "Meals.txt");

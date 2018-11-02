@@ -9,14 +9,12 @@ import java.util.Scanner;
 
 import static ui.HandleMeal.*;
 import static ui.HandleWorkOut.*;
-import static ui.Main.meals;
-import static ui.Main.workOuts;
-import static ui.Main.input;
+
 
 public class HandlesInput {
+    private static int input;
 
-
-    public static void whatToDo(Scanner reader) {
+    protected static void whatToDo(Scanner reader) {
         while (true) {
             System.out.println("Would you like to:");
             System.out.println("1. add work out/meal? - type \"1\"");
@@ -36,27 +34,26 @@ public class HandlesInput {
             }
             try {
                 inputHandle(reader);
-            } catch (InvalidInput invalidInput) {
-                invalidInput.getMessage();
-            }
-            catch (InputMismatchException e){
+            } catch (InvalidInput e) {
+                System.out.println(e.getMessage());
+            } catch (InputMismatchException e){
                 System.out.println("Bad input.");
+                reader.nextLine();
                 whatToDo(reader);
             }
-
         }
     }
 
-    public static void inputHandle(Scanner reader) throws InvalidInput, InputMismatchException{
+    protected static void inputHandle(Scanner reader) throws InvalidInput, InputMismatchException{
         if (!(0 > input || input > 4)) {
             if (input == 1) {
                 try{handleInput1(reader);} catch (InvalidInput e) {
-                    e.getMessage();
+                    System.out.println(e.getMessage());
                     handleInput1(reader);
                 }
             } else if (input == 2) {
                 try{handleInput2(reader);} catch (InvalidInput e){
-                    e.getMessage();
+                    System.out.println(e.getMessage());
                     handleInput2(reader);
                 }
             } else if (input == 3) {
@@ -64,10 +61,7 @@ public class HandlesInput {
             } else if (input == 4) {
                 handleInput4(reader);
             }
-        } else {
-            throw new InvalidInput(input);
-
-        }
+        } else throw new InvalidInput(input);
     }
 
     private static void handleInput1(Scanner reader) throws InvalidInput{
@@ -77,10 +71,10 @@ public class HandlesInput {
             System.out.println("Adding a workout on a day that already has a workout will delete that workout.");
             addWorkOut(reader);
         } else if (input == 2){
+            System.out.println("Adding a meal at the same time as another meal will delete that meal.");
             addMeal(reader);
-        } else {
-            throw new InvalidInput(input);
-        }
+        } else throw new InvalidInput(input);
+
     }
 
     private static void handleInput2(Scanner reader) throws InvalidInput{

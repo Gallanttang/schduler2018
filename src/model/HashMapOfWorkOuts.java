@@ -141,7 +141,7 @@ public class HashMapOfWorkOuts extends HashMapAbstract {
         for (Map.Entry<String, WorkOut> e: workOuts.entrySet()) {
             if(isSameDay(day, e)){
                 System.out.println(e.getValue().getName() + " is found, it is done on "
-                        + e.getValue().getDay() + " and you need to do some" + e.getValue().getPlan() + "!");
+                        + e.getValue().getDay() + " and you need to do some " + e.getValue().getPlan() + "!");
                 return true;
             }
         }
@@ -152,4 +152,17 @@ public class HashMapOfWorkOuts extends HashMapAbstract {
         return e.getValue().getDay().equalsIgnoreCase(day);
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        HashMapOfWorkOuts that = (HashMapOfWorkOuts) o;
+        return Objects.equals(workOuts, that.workOuts);
+    }
+
+    @Override
+    public int hashCode() {
+
+        return Objects.hash(workOuts);
+    }
 }

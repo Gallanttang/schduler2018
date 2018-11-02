@@ -12,13 +12,13 @@ import java.util.GregorianCalendar;
 import static ui.HandleMeal.timeToEat;
 import static ui.HandleWorkOut.timeToWorkOut;
 import static ui.Main.name;
-import static ui.Main.day;
-import static ui.Main.time;
 
 public class DateAndTime {
     final private static int sleep = 0;
+    private static String day;
+    private static int time;
 
-    public static String getDayOfWeek(int value) {
+    private static String getDayOfWeek(int value) {
         switch (value) {
             case 1:
                 day = "Sunday";
@@ -45,7 +45,7 @@ public class DateAndTime {
         return day;
     }
 
-    public static void dateHandler(){
+    protected static void dateHandler(){
         DateFormat df = new SimpleDateFormat("dd/MM/yy HH:mm:ss");
         Date dateobj = new Date();
         Calendar calendar = GregorianCalendar.getInstance(); // creates a new calendar instance
@@ -60,7 +60,7 @@ public class DateAndTime {
         return "It is " + day + "!";
     }
 
-    public static void isItTime(int time, HashMapOfWorkOuts workOuts, HashMapOfMeals meals) {
+    protected static void isItTime(HashMapOfWorkOuts workOuts, HashMapOfMeals meals) {
         System.out.println("Hello, " + name + "! " + whatDay());
         timeToEat(time, meals);
         timeToWorkOut(time, workOuts, day);

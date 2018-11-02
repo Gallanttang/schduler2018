@@ -127,6 +127,20 @@ public class HashMapOfMeals extends HashMapAbstract {
             meals.put(m.getTime(), m);
         }
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        HashMapOfMeals that = (HashMapOfMeals) o;
+        return Objects.equals(meals, that.meals);
+    }
+
+    @Override
+    public int hashCode() {
+
+        return Objects.hash(meals);
+    }
 }
 
 

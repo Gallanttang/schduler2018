@@ -13,13 +13,33 @@ import java.util.Scanner;
 
 import static ui.Checks.checkValidDay;
 import static ui.Checks.checkValidTime;
-import static ui.Main.workOuts;
-import static ui.Main.newName;
-import static ui.Main.newPlan;
-import static ui.Main.newTime;
-import static ui.Main.newDay;
 
 public class HandleWorkOut {
+    private static String newName;
+    private static String newDay;
+    private static String newPlan;
+    private static int newTime;
+
+    static HashMapOfWorkOuts workOuts = new HashMapOfWorkOuts();
+
+    private final static WorkOut legs = new WorkOut("Legs", 18, "Squats and lunges", "Monday");
+    private final static WorkOut arms = new WorkOut("Arms", 18, "Biceps curls and triceps dips", "Tuesday");
+    private final static WorkOut torso = new WorkOut("Torso", 18, "Bench Presses and pull ups", "Wednesday");
+    private final static WorkOut core = new WorkOut("Core", 18, "Sit ups and leg raises exercises", "Thursday");
+    private final static WorkOut cardio = new WorkOut("Cardio", 18, "Run 2.4km and do 5 minutes of power rope", "Friday");
+    private final static WorkOut back = new WorkOut("Back", 18, "Dead lifts and lats pull down", "Saturday");
+    private final static WorkOut rest = new WorkOut("Rest", 18, "no working out today", "Sunday");
+
+    protected static void generateWorkOuts() {
+        workOuts.getWorkOuts().put(legs.getDay(),legs);
+        workOuts.getWorkOuts().put(arms.getDay(), arms);
+        workOuts.getWorkOuts().put(torso.getDay(),torso);
+        workOuts.getWorkOuts().put(core.getDay(), core);
+        workOuts.getWorkOuts().put(cardio.getDay(),cardio);
+        workOuts.getWorkOuts().put(back.getDay(),back);
+        workOuts.getWorkOuts().put(rest.getDay(),rest);
+    }
+
     protected static void timeToWorkOut(int time, HashMapOfWorkOuts workOuts, String day) {
         for (Map.Entry<String, WorkOut> e: workOuts.getWorkOuts().entrySet()) {
             if (e.getValue().getDay().equals(day) && e.getValue().getTime() == time) {
@@ -30,7 +50,7 @@ public class HandleWorkOut {
         }
     }
 
-    public static void findWorkOut(Scanner reader) {
+    protected static void findWorkOut(Scanner reader) {
         reader.nextLine();
         System.out.println("On what day is the work out are you looking for?");
         newName = reader.nextLine();
@@ -41,7 +61,7 @@ public class HandleWorkOut {
     //Modifies: this
     //Effects:  adds a new workout to work out list, replacing the workout that occurs on the same day as
     //          the new workout
-    public static void addWorkOut(Scanner reader) {
+    protected static void addWorkOut(Scanner reader) {
         askForParamWO(reader);
         try{workOuts.addAndReplace(newName, newTime, newPlan, newDay);}
         catch (InvalidDayException | InvalidTimeException e){
@@ -57,12 +77,12 @@ public class HandleWorkOut {
 
         System.out.println("What time do you want to work out?");
         newTime = reader.nextInt();
-        checkValidTime(newTime, reader);
+        checkValidTime(newTime);
         reader.nextLine();
 
         System.out.println("On which day? (Note: this will remove the current workout on that day)");
         newDay = reader.nextLine();
-        checkValidDay(newDay, reader);
+        checkValidDay(newDay);
 
         System.out.println("What will this work out comprise of?");
         newPlan = reader.nextLine();
@@ -71,7 +91,7 @@ public class HandleWorkOut {
     //Requires: User Input
     //Modifies: Nothing
     //Effects:  Creates a txt document with existing workout plan
-    public static Path createPlanWorkOuts(Scanner reader) {
+    protected static Path createPlanWorkOuts(Scanner reader) {
         System.out.println("What would you like to name this plan?");
         String name = reader.nextLine();
         File file = new File(name + "WorkOuts.txt");
@@ -89,7 +109,7 @@ public class HandleWorkOut {
     //Requires: User Input and existing file
     //Modifies: this
     //Effects:  Over rides existing plan with a loaded plan
-    public static Path loadPlanWorkOuts(Scanner reader) {
+    protected static Path loadPlanWorkOuts(Scanner reader) {
         System.out.println("What plan would you like to load?");
         String name = reader.nextLine();
         File file = new File(name + "WorkOuts.txt");
