@@ -11,21 +11,14 @@ import static ui.HandleWorkOut.workOuts;
 import static ui.HandlesInput.whatToDo;
 
 public class Main {
-    public static String name;
-
-
-    private static void hello() {
-        System.out.println("type \"quit\" at any time to quit");
-        System.out.println("Hello, what is your name?");
-    }
+    public static String name = "Gallant";
 
     public static void main(String[] args) {
         Scanner reader = new Scanner(System.in);
         generateWorkOuts();
         generateMeals();
         dateHandler();
-        hello();
-        name = reader.nextLine();
+        System.out.println("type \"quit\" at any time to quit");
         isItTime(workOuts, meals);
         whatToDo(reader);
     }

@@ -13,6 +13,7 @@ import static ui.HandleWorkOut.*;
 
 public class HandlesInput {
     private static int input;
+    private static String newName;
 
     protected static void whatToDo(Scanner reader) {
         while (true) {
@@ -88,8 +89,10 @@ public class HandlesInput {
     }
 
     private static void handleInput3(Scanner reader){
-        Path pathWorkOuts = createPlanWorkOuts(reader);
-        Path pathMeals = createPlanMeals(reader);
+        System.out.println("What would you like to name the current plan?");
+        newName = reader.nextLine();
+        Path pathWorkOuts = createPlanWorkOuts(newName);
+        Path pathMeals = createPlanMeals(newName);
         try {
             workOuts.save(pathWorkOuts);
             meals.save(pathMeals);
@@ -101,13 +104,13 @@ public class HandlesInput {
     }
 
     private static void handleInput4(Scanner reader){
-        Path pathWorkOuts = loadPlanWorkOuts(reader);
-        Path pathMeals = loadPlanMeals(reader);
-        if (pathWorkOuts == null) {
-            return;
-        }
-        if (pathMeals == null) {
-            return;
+        System.out.println("What plan would you like to load?");
+        newName = reader.nextLine();
+        Path pathWorkOuts = loadPlanWorkOuts(newName);
+        Path pathMeals = loadPlanMeals(newName);
+        if(pathMeals == null && pathWorkOuts == null){
+            System.out.println("That plan is not found, please try again.");
+            handleInput4(reader);
         }
         try {
             workOuts.load(pathWorkOuts);

@@ -8,7 +8,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.*;
 
-public class HashMapOfWorkOuts extends HashMapAbstract {
+public class HashMapOfWorkOuts implements HashMapAbstract {
     private HashMap<String, WorkOut> workOuts;
 
     public HashMapOfWorkOuts() {

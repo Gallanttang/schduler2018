@@ -7,7 +7,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.*;
 
-public class HashMapOfMeals extends HashMapAbstract {
+public class HashMapOfMeals implements HashMapAbstract {
     private HashMap<Integer, Meals> meals;
 
     public HashMapOfMeals() {

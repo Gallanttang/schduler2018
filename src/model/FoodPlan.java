@@ -13,7 +13,7 @@ public class FoodPlan {
     }
 
     public void addIngredient(Ingredient i){
-        if(LOI.contains(i)){
+        if(!LOI.contains(i)){
             LOI.add(i);
             i.addFoodPlan(this);
         }

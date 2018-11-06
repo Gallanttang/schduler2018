@@ -80,9 +80,7 @@ public class HandleMeal {
     //Requires: User Input
     //Modifies: Nothing
     //Effects:  Creates a txt document with existing workout plan
-    protected static Path createPlanMeals(Scanner reader) {
-        System.out.println("What would you like to name this plan?");
-        String name = reader.nextLine();
+    protected static Path createPlanMeals(String name) {
         File file = new File(name + "Meals.txt");
         if (!file.exists()) {
             try {
@@ -97,12 +95,9 @@ public class HandleMeal {
     //Requires: User Input and existing file
     //Modifies: this
     //Effects:  Over rides existing plan with a loaded plan
-    protected static Path loadPlanMeals(Scanner reader) {
-        System.out.println("What plan would you like to load?");
-        String name = reader.nextLine();
+    protected static Path loadPlanMeals(String name) {
         File file = new File(name + "Meals.txt");
         if (!file.exists()) {
-            System.out.println("Meal Plan does not exist!");
             return null;
         }
         return file.toPath();

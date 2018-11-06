@@ -2,7 +2,7 @@ package ui;
 
 public class Checks {
     protected static boolean checkValidTime(int newTime) {
-        if (!(0 <= newTime && newTime <= 24)) {
+        if (!(0 <= newTime && newTime < 24)) {
             System.out.println("That is not a valid input.");
             return false;
         }
