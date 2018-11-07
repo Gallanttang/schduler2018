@@ -1,7 +1,7 @@
 package Test;
 
-import model.FoodPlan;
-import model.Ingredient;
+import P8.FoodPlan;
+import P8.Ingredient;
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;

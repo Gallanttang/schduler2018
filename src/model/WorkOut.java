@@ -6,6 +6,7 @@ public class WorkOut extends Event{
     public WorkOut (String name, int time, String plan, String day){
         super(name, time, plan);
         this.day = day;
+        super.isAMeal = false;
     }
 
     public String getDay(){

@@ -1,11 +1,11 @@
-package model;
+package P8;
 
 import java.util.ArrayList;
 import java.util.Objects;
 
 public class Ingredient {
     String name;
-    ArrayList<FoodPlan> LOFP;
+    private ArrayList<FoodPlan> LOFP;
 
     public Ingredient(String name, ArrayList<FoodPlan> fp){
         this.name = name;

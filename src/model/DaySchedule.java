@@ -1,14 +1,12 @@
 package model;
 
 import java.util.HashMap;
-import java.util.Map;
+
 
 public class DaySchedule {
     HashMap<Integer, Event> day = new HashMap<>(24);
     String name;
 
-    HashMapOfMeals m = new HashMapOfMeals();
-    HashMapOfWorkOuts wo = new HashMapOfWorkOuts();
 
     public DaySchedule(String name){
         this.name = name;
@@ -29,5 +27,9 @@ public class DaySchedule {
     public void putWorkOut(WorkOut wo){
         day.replace(wo.getTime(), wo);
         System.out.println("The workout " + wo.name + " has been added on " + name + " at " + wo.getTime() + ".");
+    }
+
+    public String getName(){
+        return name;
     }
 }

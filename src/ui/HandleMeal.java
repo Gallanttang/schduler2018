@@ -34,7 +34,6 @@ public class HandleMeal {
         meals.getMeals().put(dinner.getTime(), dinner);
     }
 
-
     protected static void timeToEat(int time, HashMapOfMeals meals) {
         if (meals.getMeals().containsKey(time)) {
             if (time == meals.get(time).getTime()) {

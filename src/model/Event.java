@@ -4,44 +4,36 @@ public abstract class Event{
     String name;
     int time;
     String plan;
+    boolean isAMeal;
 
-    // REQUIRES: this
-    // MODIFIES: NOTHING
     // EFFECTS: returns the name parameter
     public String getName() {
         return name;
     }
 
-    // REQUIRES: this
-    // MODIFIES: NOTHING
     // EFFECTS: returns the plan parameter
     public String getPlan(){
         return plan;
     }
 
-    // REQUIRES: this
-    // MODIFIES: NOTHING
     // EFFECTS: returns the time parameter
     public int getTime(){
         return time;
     }
 
-    // REQUIRES: this
-    // MODIFIES: NOTHING
+    // MODIFIES: name
     // EFFECTS:  Changes the name parameter
     public void changeName(String newName){
         this.name = newName;
     }
 
-    // REQUIRES: this
-    // MODIFIES: NOTHING
+    // MODIFIES: time
     // EFFECTS:  Changes the name parameter
     public void changeTime(int newTime){
         this.time = newTime;
     }
 
-    // REQUIRES: this
-    // MODIFIES: NOTHING
+    // MODIFIES: plan
     // EFFECTS:  Changes the name parameter
     public void changePlan(String newFP){
         this.plan = newFP;
