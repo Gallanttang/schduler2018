@@ -1,15 +1,13 @@
 package Test;
 
-import model.Meals;
-
-import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertTrue;
-
+import model.Meal;
 import org.junit.jupiter.api.Test;
+
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class TestMeal {
 
-    Meals breakfast = new Meals("Breakfast", 7, "Hey it's 7! The sun is rising, " +
+    Meal breakfast = new Meal("Breakfast", 7, "Hey it's 7! The sun is rising, " +
             "it's time for breakfast! Eat 2 eggs and an apple");
 
 

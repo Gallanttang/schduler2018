@@ -2,7 +2,7 @@ package ui;
 
 import Exceptions.InvalidTimeException;
 import model.HashMapOfMeals;
-import model.Meals;
+import model.Meal;
 
 import java.io.File;
 import java.io.IOException;
@@ -21,11 +21,11 @@ public class HandleMeal {
 
     static HashMapOfMeals meals = new HashMapOfMeals();
 
-    final static Meals breakfast = new Meals("Breakfast", 7, "Hey it's 7! The sun is rising, " +
+    final static Meal breakfast = new Meal("Breakfast", 7, "Hey it's 7! The sun is rising, " +
             "it's time for breakfast! Eat 2 eggs and an apple");
-    final static Meals lunch = new Meals("Lunch", 13, "Hey it's 13! The sun is up high, it's time for lunch! " +
+    final static Meal lunch = new Meal("Lunch", 13, "Hey it's 13! The sun is up high, it's time for lunch! " +
             "Eat pasta with any sauce and protein of choice");
-    final static Meals dinner = new Meals("Dinner", 19, "Hey it's 19! The sun is setting, it's time for dinner!" +
+    final static Meal dinner = new Meal("Dinner", 19, "Hey it's 19! The sun is setting, it's time for dinner!" +
             " Eat whatever you want, it's been a long day");
 
     protected static void generateMeals() {
@@ -80,7 +80,7 @@ public class HandleMeal {
     //Modifies: Nothing
     //Effects:  Creates a txt document with existing workout plan
     protected static Path createPlanMeals(String name) {
-        File file = new File(name + "Meals.txt");
+        File file = new File(name + "Meal.txt");
         if (!file.exists()) {
             try {
                 file.createNewFile();
@@ -95,7 +95,7 @@ public class HandleMeal {
     //Modifies: this
     //Effects:  Over rides existing plan with a loaded plan
     protected static Path loadPlanMeals(String name) {
-        File file = new File(name + "Meals.txt");
+        File file = new File(name + "Meal.txt");
         if (!file.exists()) {
             return null;
         }

@@ -19,7 +19,7 @@ public class DaySchedule {
         return day;
     }
 
-    public void putMeal(Meals m){
+    public void putMeal(Meal m){
         day.replace(m.getTime(), m);
         System.out.println("The meal " + m.name + " has been added on " + name + " at " + m.getTime() + ".");
     }

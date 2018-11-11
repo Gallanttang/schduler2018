@@ -1,6 +1,6 @@
 package Test;
 
-import P8.FoodPlan;
+import P8.Recipe;
 import P8.Ingredient;
 import org.junit.jupiter.api.Test;
 
@@ -10,10 +10,10 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class TestReflexive {
     ArrayList<Ingredient> testLOI = new ArrayList<>();
-    ArrayList<FoodPlan> testLOFP = new ArrayList<>();
+    ArrayList<Recipe> testLOFP = new ArrayList<>();
 
-    FoodPlan fp = new FoodPlan("testFP", testLOI);
-    FoodPlan fp2 = new FoodPlan("testFP", testLOI);
+    Recipe fp = new Recipe("testFP", testLOI);
+    Recipe fp2 = new Recipe("testFP", testLOI);
     Ingredient i = new Ingredient("testI", testLOFP);
 
     @Test

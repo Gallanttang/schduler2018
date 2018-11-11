@@ -46,14 +46,14 @@ public class DateAndTime {
     }
 
     protected static void dateHandler(){
-        DateFormat df = new SimpleDateFormat("dd/MM/yy HH:mm:ss");
-        Date dateobj = new Date();
-        Calendar calendar = GregorianCalendar.getInstance(); // creates a new calendar instance
-        calendar.setTime(dateobj);   // assigns calendar to given date
-        calendar.get(Calendar.MONTH);
-        System.out.println(df.format(dateobj));
-        day = getDayOfWeek(calendar.get(Calendar.DAY_OF_WEEK));        // gets hour in 12h format
-        time = calendar.get(Calendar.HOUR_OF_DAY); // gets hour in 24h format
+            DateFormat df = new SimpleDateFormat("dd/MM/yy HH:mm:ss");
+            Date dateobj = new Date();
+            Calendar calendar = GregorianCalendar.getInstance(); // creates a new calendar instance
+            calendar.setTime(dateobj);   // assigns calendar to given date
+            calendar.get(Calendar.MONTH);
+            System.out.println(df.format(dateobj));
+            day = getDayOfWeek(calendar.get(Calendar.DAY_OF_WEEK));        // gets hour in 12h format
+            time = calendar.get(Calendar.HOUR_OF_DAY); // gets hour in 24h format
     }
 
     private static String whatDay() {

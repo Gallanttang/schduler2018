@@ -8,18 +8,18 @@ import java.nio.file.Path;
 import java.util.*;
 
 public class HashMapOfMeals implements HashMapAbstract {
-    private HashMap<Integer, Meals> meals;
+    private HashMap<Integer, Meal> meals;
 
     public HashMapOfMeals() {
         meals = new HashMap<>(24);
     }
 
-    public HashMap<Integer, Meals> getMeals() {
+    public HashMap<Integer, Meal> getMeals() {
         return meals;
     }
 
     // EFFECTS:  returns the meal at the given index
-    public Meals get(Integer t) {
+    public Meal get(Integer t) {
         return meals.get(t);
     }
 
@@ -28,7 +28,7 @@ public class HashMapOfMeals implements HashMapAbstract {
     // MODIFIES: this
     // EFFECTS:  Adds a meal to the list, deletes a meal if the time given is the same
     public void addMeal(String name, int time, String plan) throws InvalidTimeException {
-        Meals meal = new Meals(name, time, plan);
+        Meal meal = new Meal(name, time, plan);
         if (!(time < 0 || time >= 24)) {
             if (!meals.containsKey(time)) {
                 meals.put(time, meal);
@@ -55,7 +55,7 @@ public class HashMapOfMeals implements HashMapAbstract {
     // MODIFIES: this
     // EFFECTS:  removes a meal at a given time from the list
     public void remove(String name) {
-        for (Map.Entry<Integer, Meals> e: meals.entrySet()) {
+        for (Map.Entry<Integer, Meal> e: meals.entrySet()) {
             if(e.getValue().getName().equalsIgnoreCase(name)){
                 System.out.println(e.getValue().getName() + " has been removed.");
                 meals.remove(e.getKey());
@@ -71,7 +71,7 @@ public class HashMapOfMeals implements HashMapAbstract {
     // EFFECTS:  Finds the meal with the given time and returns true if found, false if not
     public boolean find(String name) {
         int pmTime;
-        for (Map.Entry<Integer, Meals> e: meals.entrySet()) {
+        for (Map.Entry<Integer, Meal> e: meals.entrySet()) {
             if(e.getValue().getName().equalsIgnoreCase(name)){
                 if (e.getValue().getTime() < 12) {
                     System.out.println(e.getValue().getName() + " is at " + e.getValue().getTime()
@@ -110,7 +110,7 @@ public class HashMapOfMeals implements HashMapAbstract {
     @Override
     public void save(Path saveTo) throws IOException {
         List<String> lines = new ArrayList<>();
-        for (Map.Entry<Integer, Meals> e: meals.entrySet()) {
+        for (Map.Entry<Integer, Meal> e: meals.entrySet()) {
             lines.add(e.getValue().getName() + "," + e.getValue().getTime() + "," + e.getValue().getPlan());
         }
             Files.write(saveTo, lines);
@@ -123,7 +123,7 @@ public class HashMapOfMeals implements HashMapAbstract {
         List<String> lines = Files.readAllLines(from);
         for (String meal : lines) {
             String[] split = meal.split(",", 3);
-            Meals m = new Meals(split[0], Integer.parseInt(split[1]), split[2]);
+            Meal m = new Meal(split[0], Integer.parseInt(split[1]), split[2]);
             meals.put(m.getTime(), m);
         }
     }

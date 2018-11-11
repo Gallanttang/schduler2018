@@ -2,19 +2,22 @@ package GUI;
 
 
 import javafx.application.Application;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.stage.Stage;
+
+import static GUI.HandleSchedule.generateSchedule;
+import static GUI.HandleSchedule.printOutSchedule;
 
 public class GUI extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception{
-        Parent root = FXMLLoader.load(getClass().getResource("GUI/ui.fxml"));
-        primaryStage.setTitle("Hello World");
-        primaryStage.setScene(new Scene(root, 300, 275));
-        primaryStage.show();
+        generateSchedule();
+        printOutSchedule();
+
+//        Parent root = FXMLLoader.load(getClass().getResource("GUI/ui.fxml"));
+//        primaryStage.setTitle("Hello World");
+//        primaryStage.setScene(new Scene(root, 300, 275));
+//        primaryStage.show();
     }
 
 

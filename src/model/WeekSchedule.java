@@ -42,7 +42,7 @@ public class WeekSchedule {
         }
     }
 
-    public void putMeal(Meals m) {
+    public void putMeal(Meal m) {
         for (Map.Entry<String, DaySchedule> entry : weekSchedule.entrySet()) {
             entry.getValue().putMeal(m);
         }
@@ -77,7 +77,7 @@ public class WeekSchedule {
         for (String string : lines) {
             String[] split = string.split(",", 6);
             if(split[5].equalsIgnoreCase("true")){
-               Meals m = new Meals(split[1],Integer.parseInt(split[2]),split[3]);
+               Meal m = new Meal(split[1],Integer.parseInt(split[2]),split[3]);
                putMeal(m);
             } else {
                 WorkOut wo = new WorkOut(split[1], Integer.parseInt(split[2]), split[3], split[0]);
