@@ -17,7 +17,6 @@ public class Web {
             String apikey = "c1ba221295a6e24405c1b3c778db79a9";
             String londonweatherquery = "http://api.openweathermap.org/data/2.5/weather?q=Vancouver,ca&APPID=";
             String theURL=londonweatherquery+apikey;
-            //String theURL = "https://www.ugrad.cs.ubc.ca/~cs210/2018w1/welcomemsg.html"; //this can point to any URL
 
             URL url = new URL(theURL);
             br = new BufferedReader(new InputStreamReader(url.openStream()));
@@ -37,8 +36,11 @@ public class Web {
             JSONObject jsonObject = new JSONObject(sb.toString());
             JSONArray weather = jsonObject.getJSONArray("weather");
             String[] split = weather.toString().split(",",4);
-            System.out.print("Today's weather description is ");
-            System.out.println(split[1]);
+
+            String[] split1 = split[1].split("\"", 5);
+            System.out.print("The weather now is: ");
+
+            System.out.println(split1[3]);
 
         } finally {
 

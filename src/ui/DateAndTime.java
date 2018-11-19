@@ -18,6 +18,7 @@ public class DateAndTime {
     private static String day;
     private static int time;
 
+
     private static String getDayOfWeek(int value) {
         switch (value) {
             case 1:
@@ -44,7 +45,6 @@ public class DateAndTime {
         }
         return day;
     }
-
     protected static void dateHandler(){
             DateFormat df = new SimpleDateFormat("dd/MM/yy HH:mm:ss");
             Date dateobj = new Date();

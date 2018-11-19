@@ -1,8 +1,7 @@
 package GUI;
 
-import javafx.scene.input.MouseEvent;
-
 public class Controller {
-    public void dragDetect(MouseEvent mouseEvent) {
+    public void button(){
+        System.out.println("Hello World");
     }
 }

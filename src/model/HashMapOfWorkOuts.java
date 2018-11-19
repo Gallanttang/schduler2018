@@ -59,6 +59,7 @@ public class HashMapOfWorkOuts implements HashMapAbstract {
         WorkOut WO = new WorkOut(name, time, work, day);
         if(!workOuts.containsKey(day)){
             workOuts.put(day, WO);
+//            notify(WO.getName() + " has been added on " + WO.getDay());
             System.out.println(WO.getName() + " has been added on " + WO.getDay());
         } else {
             System.out.println(workOuts.get(day).getName() + " on " + day + " has been removed");

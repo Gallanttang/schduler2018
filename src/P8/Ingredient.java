@@ -3,7 +3,7 @@ package P8;
 import java.util.ArrayList;
 import java.util.Objects;
 
-public class Ingredient extends Observer {
+public class Ingredient extends Observer{
     String name;
     private ArrayList<Recipe> LOFP;
 
@@ -12,14 +12,12 @@ public class Ingredient extends Observer {
         LOFP = fp;
     }
 
-    public void addFoodPlan(Recipe fp){
+    public void add(Recipe fp){
         if(!LOFP.contains(fp)){
             LOFP.add(fp);
-            fp.addIngredient(this);
+            fp.add(this);
         }
     }
-
-
 
     @Override
     public boolean equals(Object o) {

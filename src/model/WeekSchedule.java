@@ -3,14 +3,11 @@ package model;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public class WeekSchedule {
-    HashMap<String, DaySchedule> weekSchedule = new HashMap<>(7);
-    List<String> days = new ArrayList<>();
+    LinkedHashMap<String, DaySchedule> weekSchedule = new LinkedHashMap<>(7);
+    ArrayList<String> days = new ArrayList<>();
     DaySchedule DS;
 
     public WeekSchedule() {

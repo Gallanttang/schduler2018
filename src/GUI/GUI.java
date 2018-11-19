@@ -1,41 +1,34 @@
 package GUI;
 
 
+import Final.HandleSchedule;
 import javafx.application.Application;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.stage.Stage;
 
-import static GUI.HandleSchedule.generateSchedule;
-import static GUI.HandleSchedule.printOutSchedule;
+import javax.swing.*;
 
 public class GUI extends Application {
-
+    private JFrame frame = new JFrame("Health Planner - Gallant");
     @Override
     public void start(Stage primaryStage) throws Exception{
-        generateSchedule();
-        printOutSchedule();
 
-//        Parent root = FXMLLoader.load(getClass().getResource("GUI/ui.fxml"));
-//        primaryStage.setTitle("Hello World");
-//        primaryStage.setScene(new Scene(root, 300, 275));
-//        primaryStage.show();
+        Parent root = FXMLLoader.load(getClass().getResource("ui.fxml"));
+        primaryStage.setTitle("Hello World");
+        primaryStage.setScene(new Scene(root, 800, 500));
+        primaryStage.show();
     }
 
 
     public static void main(String[] args) {
         launch(args);
+        HandleSchedule hs = new HandleSchedule();
+        JTabbedPane tabs = new JTabbedPane();
+
     }
 }
 
 
-//import javax.swing.JOptionPane;
-//
-//public class GUI {
-//    public static void main(String[] args){
-//
-//        String name = JOptionPane.showInputDialog("What is your name?");
-//        String input = JOptionPane.showInputDialog("What would you like to do?");
-//
-//
-//
-//    }
-//}
+

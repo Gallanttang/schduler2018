@@ -13,9 +13,9 @@ public abstract class Subject {
         }
     }
 
-    public void notifyObservers(Recipe fp){
+    public void notifyObservers(Recipe r){
         for (Observer o: observers) {
-            o.update(fp);
+            o.update(r);
         }
     }
 }

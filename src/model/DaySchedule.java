@@ -1,10 +1,10 @@
 package model;
 
-import java.util.HashMap;
+import java.util.LinkedHashMap;
 
 
 public class DaySchedule {
-    HashMap<Integer, Event> day = new HashMap<>(24);
+    LinkedHashMap<Integer, Event> day = new LinkedHashMap<>(24);
     String name;
 
 
@@ -15,7 +15,7 @@ public class DaySchedule {
         }
     }
 
-    public HashMap<Integer, Event> getDaySchedule() {
+    public LinkedHashMap<Integer, Event> getDaySchedule() {
         return day;
     }
 

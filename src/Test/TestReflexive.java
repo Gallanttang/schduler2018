@@ -18,7 +18,7 @@ public class TestReflexive {
 
     @Test
     public void testEquals() {
-        fp.addIngredient(i);
+        fp.add(i);
         assertTrue(fp.equals(fp2));
     }
 }
