@@ -4,8 +4,13 @@ import java.util.Calendar;
 import java.util.GregorianCalendar;
 
 public class DateAndTime{
+    private int hour;
 
-   public String dayOfWeek(){
+    public int getHour() {
+        return hour;
+    }
+
+    public String dayOfWeek(){
        Calendar calendar = new GregorianCalendar(); // creates a new calendar instance
        int day = calendar.get(Calendar.DAY_OF_WEEK);
        return getDayOfWeek(day);
@@ -48,7 +53,7 @@ public class DateAndTime{
 
         int second = calendar.get(Calendar.SECOND);
         int minute = calendar.get(Calendar.MINUTE);
-        int hour = calendar.get(Calendar.HOUR_OF_DAY);
+        hour = calendar.get(Calendar.HOUR_OF_DAY);
 
         String dt = "Date: " + dayOfWeek + " - " + date + "/" + month + "/" + year +
                 "\nTime: " + hour + ":" + minute + ":" + second;

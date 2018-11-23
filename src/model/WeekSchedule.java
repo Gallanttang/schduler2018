@@ -31,6 +31,26 @@ public class WeekSchedule {
         return DS;
     }
 
+    public Boolean removeMeal(String name){
+        for (Map.Entry<String, DaySchedule> entry : weekSchedule.entrySet()) {
+            if(!entry.getValue().removeMeal(name)){
+                return false;
+            }
+        }
+        return true;
+    }
+
+    public Boolean removeWorkOut(String name){
+        Boolean hasBeenRemoved = false;
+        for (Map.Entry<String, DaySchedule> entry : weekSchedule.entrySet()) {
+            if(entry.getValue().removeWorkOut(name)){
+                return true;
+            }
+        }
+        return hasBeenRemoved;
+    }
+
+
     public void putWorkOut(WorkOut wo) {
         for (Map.Entry<String, DaySchedule> entry : weekSchedule.entrySet()) {
             if (entry.getKey().equalsIgnoreCase(wo.day)) {
@@ -53,8 +73,8 @@ public class WeekSchedule {
         for (Map.Entry<String, DaySchedule> e : weekSchedule.entrySet()) {
             for (Map.Entry<Integer, Event> entry : e.getValue().day.entrySet()) {
                 if (entry.getValue() != null) {
-                        lines.add(e.getKey() + "," + entry.getValue().name
-                                + "," + entry.getValue().time + "," + entry.getValue().plan + "," + entry.getValue().isAMeal);
+                        lines.add(e.getKey() + ";" + entry.getValue().name
+                                + ";" + entry.getValue().time + ";" + entry.getValue().plan + ";" + entry.getValue().isAMeal);
                 }
             }
             Files.write(saveTo, lines);
@@ -72,8 +92,10 @@ public class WeekSchedule {
 
         List<String> lines = Files.readAllLines(from);
         for (String string : lines) {
-            String[] split = string.split(",", 6);
-            if(split[5].equalsIgnoreCase("true")){
+
+            String[] split = string.split(";", 5);
+
+            if(split[4].equalsIgnoreCase("true")){
                Meal m = new Meal(split[1],Integer.parseInt(split[2]),split[3]);
                putMeal(m);
             } else {

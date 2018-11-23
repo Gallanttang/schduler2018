@@ -8,7 +8,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.URL;
 
-public class WeatherPanel {
+public class WeatherAPI {
 
     public String weather() throws IOException {
         BufferedReader br = null;

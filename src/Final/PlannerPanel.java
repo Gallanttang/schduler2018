@@ -11,14 +11,23 @@ public class PlannerPanel extends JPanel {
     private JLabel dateAndTime;
     private JLabel weather;
     private DateAndTime dt;
-    private WeatherPanel wp;
+    private WeatherAPI wp;
+    private UserInput ui;
+    private HandleSchedule hs;
 
-    public PlannerPanel() {
+    public PlannerPanel(HandleSchedule handleSchedule, DateAndTime dnt) {
+        this.hs = handleSchedule;
+        this.dt = dnt;
+
         Dimension size = getPreferredSize();
         size.width = 960;
-        size.height = 450;
+        size.height = 250;
         setPreferredSize(size);
-        dateAndTime = new JLabel();
+
+        // set up
+        setBorder(BorderFactory.createTitledBorder("Hello, what is your name?"));
+
+        dateAndTime= new JLabel();
         dateAndTime.setFont(new Font("Arial", 0, 24));
         clock();
 
@@ -26,55 +35,44 @@ public class PlannerPanel extends JPanel {
         weather.setFont(new Font("Arial", 0, 24));
         weather();
 
-
-        JButton add_event = new JButton("Add Event");
-        JButton find_event = new JButton("Find Event");
-        JButton save_plan = new JButton("Save Plan");
-        JButton load_plan = new JButton("Load Plan");
-        JPanel buttonPane = new JPanel(new GridLayout(1,4));
-        buttonPane.add(add_event);
-        buttonPane.add(find_event);
-        buttonPane.add(save_plan);
-        buttonPane.add(load_plan);
-
-        setBorder(BorderFactory.createTitledBorder("Hello, what is your name?"));
-
-        JPanel namePane = new JPanel();
+        JPanel userInput = new JPanel();
         JLabel name = new JLabel("Name: ");
         JTextField nameField = new JTextField(10);
 
         JButton confirmBtn = new JButton("Confirm");
 
+        ui= new UserInput(hs);
+
+        userInput.add(name,BorderLayout.LINE_START);
+        userInput.add(nameField,BorderLayout.LINE_END);
+        userInput.add(confirmBtn,BorderLayout.SOUTH);
+
+
+        setLayout(new BorderLayout());
+
+        // Button Functions
         confirmBtn.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 if (!nameField.getText().isEmpty()) {
                     setBorder(BorderFactory.createTitledBorder("Welcome, " + nameField.getText()));
-                    remove(namePane);
-                    add(buttonPane, BorderLayout.NORTH);
-
+                    userInput.removeAll();
+                    ui.toggleChange();
+                    userInput.add(ui.buttonPane);
                 }
             }
         });
 
-        namePane.add(name,BorderLayout.LINE_START);
-        namePane.add(nameField,BorderLayout.LINE_END);
-        namePane.add(confirmBtn,BorderLayout.SOUTH);
-
-        setLayout(new BorderLayout());
-
-
-
         //// First Column
 
-        add(namePane, BorderLayout.NORTH);
+        add(userInput, BorderLayout.NORTH);
 
         add(dateAndTime, BorderLayout.CENTER);
 
         add(weather, BorderLayout.SOUTH);
     }
 
-    public void clock() {
+    private void clock() {
         Thread threadClock = new Thread() {
             public void run() {
                 dt = new DateAndTime();
@@ -91,14 +89,14 @@ public class PlannerPanel extends JPanel {
         threadClock.start();
     }
 
-    public void weather() {
+    private void weather() {
         Thread threadClock = new Thread() {
             public void run() {
-                wp = new WeatherPanel();
+                wp = new WeatherAPI();
                 try {
                     while (true) {
                         weather.setText(wp.weather());
-                        sleep(10000);
+                        sleep(1000000000);
                     }
                 } catch (IOException | InterruptedException e) {
                     e.printStackTrace();

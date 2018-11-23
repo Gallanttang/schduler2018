@@ -21,6 +21,10 @@ public abstract class Event{
         return time;
     }
 
+    public Boolean getIsAMeal(){
+        return isAMeal;
+    }
+
     // MODIFIES: name
     // EFFECTS:  Changes the name parameter
     public void changeName(String newName){

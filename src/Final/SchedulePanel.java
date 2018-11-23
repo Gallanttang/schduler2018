@@ -5,18 +5,16 @@ import model.Event;
 
 import javax.swing.*;
 import java.awt.*;
-import java.util.ArrayList;
 import java.util.Map;
 
 public class SchedulePanel extends JPanel{
-    DateAndTime dt;
-    HandleSchedule hs;
-    JTable table;
+    private JTable table;
+    private HandleSchedule hs;
+    private DateAndTime dt;
 
-    public SchedulePanel(){
-        dt = new DateAndTime();
-        hs = new HandleSchedule();
-        hs.generateSchedule();
+    public SchedulePanel(HandleSchedule handleSchedule, DateAndTime dt){
+        hs = handleSchedule;
+        this.dt = dt;
 
         Dimension size = getPreferredSize();
         size.width = 200;
@@ -24,25 +22,28 @@ public class SchedulePanel extends JPanel{
         //setLayout(new BoxLayout(new Container(), 0));
         setBorder(BorderFactory.createTitledBorder("Health schedule for today"));
 
-        ArrayList<ArrayList<String>> data = hs.printOutSchedule(dt.dayOfWeek());
-
-        String[] columnNames = {"Event", "Time"};
-
         table = new JTable(4,12);
         table.setName(dt.dayOfWeek());
         table.setBounds(0,0,200,700);
-        fillTable();
+        scheduler();
 
-        GridBagConstraints gc = new GridBagConstraints();
+        add(table);
+    }
 
-        //// First Column
-        gc.anchor = GridBagConstraints.FIRST_LINE_START;
-        gc.weightx = 10;
-        gc.weighty = 10;
-        gc.gridx = 0;
-        gc.gridy = 0;
-        add(table,gc);
-
+    private void scheduler() {
+        Thread threadClock = new Thread() {
+            public void run() {
+                try {
+                    while (true) {
+                        fillTable();
+                        sleep(1000);
+                    }
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }
+        };
+        threadClock.start();
     }
 
     private void fillTable() {
@@ -52,7 +53,7 @@ public class SchedulePanel extends JPanel{
                     String name;
                     if(null!=e.getValue()){
                         name = e.getValue().getName();
-                    } else name = "Free";
+                    } else name = "";
                     int time = e.getKey();
                     if(time < 12){
                         if(time!=0){
@@ -70,7 +71,6 @@ public class SchedulePanel extends JPanel{
                         table.setValueAt(time - 12 + "PM",2,time-12);
                         table.setValueAt(name, 3,time-12);}
                     }
-
                 }
             }
         }
