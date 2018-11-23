@@ -52,11 +52,30 @@ public class DateAndTime{
         int year = calendar.get(Calendar.YEAR);
 
         int second = calendar.get(Calendar.SECOND);
+
         int minute = calendar.get(Calendar.MINUTE);
+
         hour = calendar.get(Calendar.HOUR_OF_DAY);
 
         String dt = "Date: " + dayOfWeek + " - " + date + "/" + month + "/" + year +
-                "\nTime: " + hour + ":" + minute + ":" + second;
+                "\nTime: ";
+
+        if(hour < 10){
+            dt = dt + "0" + hour;
+        } else {
+            dt = dt + hour;
+        }
+        if(minute < 10){
+            dt = dt + ":" + "0" + minute;
+        } else {
+            dt = dt + ":" + minute;
+        }
+        if(second < 10){
+            dt = dt + ":" + "0" + second;
+        } else {
+            dt = dt + ":" + second;
+        }
+
         return dt;
    }
 }

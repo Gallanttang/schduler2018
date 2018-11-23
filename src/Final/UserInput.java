@@ -232,12 +232,19 @@ public class UserInput {
             public void actionPerformed(ActionEvent e) {
                 if (!woParam.getText().isEmpty()) {
                     String day = woParam.getText();
+                    if(checkValidDay(day)){
                     WorkOut wo = new WorkOut(name,time,plan,day);
                     hs.getWs().putWorkOut(wo);
                     toggleChange();
                     JFrame pop = new JFrame("Completed");
                     pop.setSize(200, 10);
                     pop.setVisible(true);
+                    } else {
+                        JFrame pop = new JFrame("Not a valid day");
+                        pop.setSize(200, 10);
+                        pop.setVisible(true);
+                        woParam.setText("");
+                    }
                 }
             }
         });
@@ -418,4 +425,9 @@ public class UserInput {
         toggleChange();
     }
 
+
+    private boolean checkValidDay(String newDay) {
+        return newDay.equals("Monday") || newDay.equals("Tuesday") || newDay.equals("Wednesday") || newDay.equals("Thursday") ||
+                newDay.equals("Friday") || newDay.equals("Saturday") || newDay.equals("Sunday");
+    }
 }

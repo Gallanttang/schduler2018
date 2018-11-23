@@ -22,13 +22,14 @@ public class MainFrame extends JFrame {
 
 
         JTextArea textArea = new JTextArea();
-        textArea.setFont(new Font("Arial", 0, 30));
+        textArea.setFont(new Font("Arial", 0, 24));
+        textArea.setColumns(1);
         textArea.setVisible(true);
         textArea.setAutoscrolls(true);
         textArea.setEditable(false);
 
         JScrollPane scrollPane = new JScrollPane(textArea);
-        scrollPane.setPreferredSize(new Dimension(960,180));
+        scrollPane.setPreferredSize(new Dimension(960,100));
 
         JTabbedPane tabbedPane = new JTabbedPane();
         d.setSize(960,200);

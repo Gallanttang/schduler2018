@@ -23,6 +23,7 @@ public class SchedulePanel extends JPanel{
         setBorder(BorderFactory.createTitledBorder("Health schedule for today"));
 
         table = new JTable(4,12);
+        table.removeEditor();
         table.setName(dt.dayOfWeek());
         table.setBounds(0,0,200,700);
         scheduler();
@@ -36,7 +37,7 @@ public class SchedulePanel extends JPanel{
                 try {
                     while (true) {
                         fillTable();
-                        sleep(1000);
+                        sleep(10000);
                     }
                 } catch (InterruptedException e) {
                     e.printStackTrace();
