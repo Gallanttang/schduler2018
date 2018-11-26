@@ -1,6 +1,7 @@
 package Final;
 
 import javax.swing.*;
+import java.awt.*;
 
 public class Main extends JFrame{
     public static void main(String[] args) {
@@ -12,7 +13,10 @@ public class Main extends JFrame{
             @Override
             public void run() {
                 JFrame frame = new MainFrame("Health Planner");
-                frame.setSize(960,350);
+                Dimension d = new Dimension(960,350);
+                frame.setSize(d);
+                frame.setMaximumSize(d);
+                frame.setMinimumSize(d);
                 frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
                 frame.setVisible(true);
             }
