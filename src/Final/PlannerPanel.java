@@ -96,7 +96,7 @@ public class PlannerPanel extends JPanel {
                 try {
                     while (true) {
                         weather.setText(wp.weather());
-                        sleep(1000000000);
+                        sleep(1000000);
                     }
                 } catch (IOException | InterruptedException e) {
                     e.printStackTrace();

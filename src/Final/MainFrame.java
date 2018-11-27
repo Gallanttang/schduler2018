@@ -64,7 +64,7 @@ public class MainFrame extends JFrame {
                         String day = dt.dayOfWeek();
                         int hour = dt.getHour();
                         jta.setText(hs.isItTime(day,hour));
-                        sleep(100000);
+                        sleep(1000);
                     }
                 } catch (InterruptedException e) {
                     e.printStackTrace();

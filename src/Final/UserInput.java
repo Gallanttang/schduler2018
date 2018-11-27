@@ -153,9 +153,11 @@ public class UserInput {
         buttonPane.add(new JLabel("What body part are you working out?"), BorderLayout.LINE_START);
         JTextField woParam = new JTextField(15);
         JButton confirmBtn = new JButton("confirm");
+        JButton back = new JButton("Go back to menu");
 
         buttonPane.add(woParam);
         buttonPane.add(confirmBtn);
+        buttonPane.add(back);
 
         confirmBtn.addActionListener(new ActionListener() {
             @Override
@@ -163,6 +165,13 @@ public class UserInput {
                 if (!woParam.getText().isEmpty()) {
                     userInputAddWOTime(woParam.getText());
                 }
+            }
+        });
+
+        back.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                userInputBack();
             }
         });
     }
@@ -255,14 +264,24 @@ public class UserInput {
         buttonPane.add(new JLabel("What will you name this meal?"), BorderLayout.LINE_START);
         JTextField mParam = new JTextField(15);
         JButton confirmBtn = new JButton("confirm");
+        JButton back = new JButton("Go back to menu");
         buttonPane.add(mParam);
         buttonPane.add(confirmBtn);
+        buttonPane.add(back);
+
         confirmBtn.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 if (!mParam.getText().isEmpty()) {
                     userInputAddMealTime(mParam.getText());
                 }
+            }
+        });
+
+        back.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                userInputBack();
             }
         });
     }
